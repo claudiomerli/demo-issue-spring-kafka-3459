@@ -14,7 +14,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 @Configuration
 public class CustomKafkaConfiguration {
 
-    @Bean
+    @Bean("kafkaListenerContainerFactory")
     @ConditionalOnProperty(prefix = "demo.concurrency", value = "enabled")
     ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactoryWithConcurrency(
             ConsumerFactory<String, String> kafkaConsumerFactory
@@ -26,7 +26,7 @@ public class CustomKafkaConfiguration {
         return factory;
     }
 
-    @Bean
+    @Bean("kafkaListenerContainerFactory")
     @ConditionalOnMissingBean({ConcurrentKafkaListenerContainerFactory.class})
     ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
             ConsumerFactory<String, String> kafkaConsumerFactory
